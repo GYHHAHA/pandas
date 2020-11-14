@@ -2105,7 +2105,6 @@ class MultiIndex(Index):
         Parameters
         ----------
         codes : array-like
-            Must be a list of tuples
         level : int or level name, default None
         errors : str, default 'raise'
 
@@ -2157,9 +2156,10 @@ class MultiIndex(Index):
         index = self.levels[i]
         values = index.get_indexer(codes)
 
+        not_found = np.array(codes)[np.array(values) == -1].tolist()
+        if len(not_found) != 0:
+            raise KeyError(f"labels {not_found} not found in level")
         mask = ~algos.isin(self.codes[i], values)
-        if mask.all() and errors != "ignore":
-            raise KeyError(f"labels {codes} not found in level")
 
         return self[mask]
 
