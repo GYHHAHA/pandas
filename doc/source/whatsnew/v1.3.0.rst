@@ -290,7 +290,7 @@ Groupby/resample/rolling
 Reshaping
 ^^^^^^^^^
 
--
+- Bug in :meth:`MultiIndex.remove_unused_levels` drops NaN when level contains NaN (:issue:`37510`)
 -
 
 Sparse
